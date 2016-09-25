@@ -1,4 +1,5 @@
-var request = require("request");
+// var request = require("request");
+var gpio = require('rpi-gpio');
 var fs = require("fs");
 var Service, Characteristic;
 
@@ -6,27 +7,26 @@ module.exports = function(homebridge) {
 	Service = homebridge.hap.Service;
 	Characteristic = homebridge.hap.Characteristic;
 
-	homebridge.registerAccessory("homebridge-httpdoor", "Httpdoor", DoorAccessory);
+	homebridge.registerAccessory("homebridge-gardendoor", "Gardendoor", DoorAccessory);
 }
 
 function DoorAccessory(log, config) {
 	this.log = log;
 	this.name = config["name"];
-	this.controlurl = config["controlURL"];
-	this.statusurl = config["statusURL"];
+	this.gpioPort = config["GPIOPort"];
 
-	this.garageservice = new Service.GarageDoorOpener(this.name);
+	this.gardendoorservice = new Service.gardendoorDoorOpener(this.name);
 
-	this.garageservice
+	this.gardendoorservice
 		.getCharacteristic(Characteristic.CurrentDoorState)
 		.on('get', this.getState.bind(this));
 
-	this.garageservice
+	this.gardendoorservice
 		.getCharacteristic(Characteristic.TargetDoorState)
 		.on('get', this.getState.bind(this))
 		.on('set', this.setState.bind(this));
 
-	this.garageservice
+	this.gardendoorservice
 		.getCharacteristic(Characteristic.ObstructionDetected)
 		.on('get', this.getState.bind(this));
 }
@@ -34,7 +34,12 @@ function DoorAccessory(log, config) {
 DoorAccessory.prototype.getState = function(callback) {
 	this.log("Getting current state...");
 
-	request.get({
+	gpio.read(7, function(err, value) {
+		var closed = (value == false);
+		callback(null, closed); // success
+    });
+/*
+request.get({
 		url: this.statusurl
 	}, function(err, response, body) {
 		if (!err && response.statusCode == 200) {
@@ -48,12 +53,33 @@ DoorAccessory.prototype.getState = function(callback) {
 			callback(err);
 		}
 	}.bind(this));
+*/
 }
 
 DoorAccessory.prototype.setState = function(state, callback) {
 	var doorState = (state == Characteristic.TargetDoorState.CLOSED) ? "closed" : "open";
 	this.log("Set state to %s", doorState);
 	
+	// switch relay to ON
+	gpio.setup(this.gpioPort, gpio.DIR_OUT, function(){
+    	gpio.write(this.gpioPort, true, function(err) {
+        	if (err) throw err;
+        		console.log('Written ON to pin ' + this.gpioPort);
+	    });
+	});
+	
+	setTimeout(
+		function(){  
+			// switch relay to OFF
+			gpio.setup(this.gpioPort, gpio.DIR_OUT, function(){
+	    	gpio.write(this.gpioPort, false, function(err) {
+    	    	if (err) throw err;
+        		console.log('Written OFF to pin ' + this.gpioPort);
+		    });
+		});
+	}, 5000);
+	
+/*	
 	request.get({
 		url: this.controlurl
 	}, function(err, response, body) {
@@ -61,7 +87,7 @@ DoorAccessory.prototype.setState = function(state, callback) {
 			this.log("State change complete.");
 			var currentState = (state == Characteristic.TargetDoorState.CLOSED) ? Characteristic.CurrentDoorState.CLOSED : Characteristic.CurrentDoorState.OPEN;
 
-			this.garageservice
+			this.gardendoorservice
 			.setCharacteristic(Characteristic.CurrentDoorState, currentState);
 
 			callback(null); // success
@@ -70,8 +96,9 @@ DoorAccessory.prototype.setState = function(state, callback) {
 			callback(err || new Error("Error setting door state."));
 		}
 	}.bind(this));
+*/
 },
 
 DoorAccessory.prototype.getServices = function() {
-	return [this.garageservice];
+	return [this.gardendoorservice];
 }
