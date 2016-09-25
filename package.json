@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "description": "Relay controlled door accessory plugin for Homebridge",
   "license": "MIT",
-  "author": "Eric Conner <NPM@AndreasPrang.de>",
+  "author": "Andreas Prang <NPM@AndreasPrang.de>",
   "keywords": [
     "homebridge-plugin"
   ],
