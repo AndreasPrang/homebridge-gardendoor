@@ -15,7 +15,7 @@ function DoorAccessory(log, config) {
 	this.name = config["name"];
 	this.gpioPort = config["GPIOPort"];
 
-	this.gardendoorservice = new Service.garageDoorOpener(this.name);
+	this.gardendoorservice = new Service.GarageDoorOpener(this.name);
 
 	this.gardendoorservice
 		.getCharacteristic(Characteristic.CurrentDoorState)
