@@ -1,5 +1,8 @@
 #Gardendoor Plugin
 
+##Requirements:
+-  Raspberry Pi 
+
 Example config.json:
 ```JSON
 	{
