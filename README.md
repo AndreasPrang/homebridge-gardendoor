@@ -1,4 +1,5 @@
 #Gardendoor Plugin
+A script to open a Garde Door with Siri. "Hey Siri... Switch <NameOfYourChoise> on" opens the door for 5 secounds.
 
 ###Requirements:
 -  Raspberry Pi 
@@ -6,7 +7,7 @@
 ###Installation on a fresh Raspberry Pi 2 running Debian ≥ 8:
     > sudo su
     > apt install -y curl
-    > curl -sL https://raw.githubusercontent.com/AndreasPrang/pastebin/master/GarageDoorSetupRPi.sh | bash -
+    > curl -sL https://raw.githubusercontent.com/AndreasPrang/pastebin/master/Garden%20Door%20Opener%20-%20Raspberry%20PI/GardenDoorSetupRPi.sh | bash -
     
     Connect an Relay on Pin 7 and GND.
     > homebridge
