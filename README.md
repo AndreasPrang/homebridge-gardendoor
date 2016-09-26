@@ -3,6 +3,14 @@
 ###Requirements:
 -  Raspberry Pi 
 
+###Installation on a fresh Raspberry Pi 2 running Debian ≥ 8:
+    > sudo su
+    > apt install -y curl
+    > curl -sL https://raw.githubusercontent.com/AndreasPrang/pastebin/master/GarageDoorSetupRPi.sh | bash -
+    
+    Connect an Relay on Pin 7 and GND.
+    > homebridge
+
 Example config.json:
 ```JSON
 {
