@@ -16,7 +16,8 @@
     "homebridge": ">=0.2.0"
   },
   "dependencies": {
-    "rpi-gpio": ">=0.7.0"
+    "rpio": ">=0.9.12"
+    
   },
   "bugs": {
     "url": "https://github.com/AndreasPrang/homebridge-gardendoor/issues"
