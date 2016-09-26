@@ -3,6 +3,7 @@ A script to open a Garden Door with Siri / HomeKit. "Hey Siri... Switch GardenDo
 
 ###Requirements:
 -  Raspberry Pi 
+-  Relay connected to Pin 7
 
 ###Installation on a fresh Raspberry Pi 2 running Debian ≥ 8:
     > sudo su
