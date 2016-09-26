@@ -29,5 +29,3 @@ Example config.json:
 ```
 
 This plugin supports doors controlled relay connected to an Raspberry Pi.
-
-!!! This Plugin is actually in Development and not working at all !!!
