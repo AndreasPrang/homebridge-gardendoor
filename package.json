@@ -1,6 +1,6 @@
 {
   "name": "homebridge-gardendoor",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "Relay controlled door accessory plugin for Homebridge",
   "license": "MIT",
   "author": "Andreas Prang <NPM@AndreasPrang.de>",
