@@ -1,5 +1,5 @@
 #Gardendoor Plugin
-A script to open a Garden Door with Siri / HomeKit. "Hey Siri... Switch GardenDoor on" opens the door for 5 secounds.
+A script to open a Garden Door with Siri / HomeKit. "Hey Siri... Open the <GardenDoor>" opens the door for 5 secounds.
 
 ###Requirements:
 -  Raspberry Pi 
