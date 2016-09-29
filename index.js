@@ -5,10 +5,10 @@ module.exports = function(homebridge) {
     Service = homebridge.hap.Service;
     Characteristic = homebridge.hap.Characteristic;
 
-    homebridge.registerAccessory('homebridge-gpio', 'GPIO', LockitronAccessory);
+    homebridge.registerAccessory('homebridge-gpio', 'GPIO', GardenDoorAccessory);
 }
 
-function LockitronAccessory(log, config) {
+function GardenDoorAccessory(log, config) {
     this.log = log;
     this.name = config['name'];
     this.pin = config['pin'];
@@ -27,11 +27,11 @@ function LockitronAccessory(log, config) {
     .on('set', this.setState.bind(this));
 }
 
-LockitronAccessory.prototype.getServices = function() {
+GardenDoorAccessory.prototype.getServices = function() {
     return [this.service];
 }
 
-LockitronAccessory.prototype.getState = function(callback) {
+GardenDoorAccessory.prototype.getState = function(callback) {
         this.log("Getting current state...");
 
         rpio.open(this.pin, rpio.OUTPUT);
@@ -41,7 +41,7 @@ LockitronAccessory.prototype.getState = function(callback) {
         console.log('Pin ' + this.pin + ' is currently set ' + (rpio.read(this.pin) ? 'high' : 'low'));
 }
 
-LockitronAccessory.prototype.setState = function(state, callback) {
+GardenDoorAccessory.prototype.setState = function(state, callback) {
   var lockitronState = (state == Characteristic.LockTargetState.SECURED) ? "lock" : "unlock";
 
   this.log("Set state to %s", lockitronState);
@@ -58,7 +58,7 @@ LockitronAccessory.prototype.setState = function(state, callback) {
     }
 }
 
-LockitronAccessory.prototype.pinAction = function(action) {
+GardenDoorAccessory.prototype.pinAction = function(action) {
         this.log('Turning ' + (action == 0 ? 'on' : 'off') + ' pin #' + this.pin);
 
         var self = this;
@@ -66,7 +66,7 @@ LockitronAccessory.prototype.pinAction = function(action) {
         rpio.write(this.pin, action == 0 ? rpio.LOW : rpio.HIGH);
 }
 
-LockitronAccessory.prototype.pinTimer = function() {
+GardenDoorAccessory.prototype.pinTimer = function() {
         var self = this;
         setTimeout(function() {
                         self.pinAction(1);
