@@ -10,7 +10,7 @@ A script to open a Garden Door with Siri / HomeKit. "Hey Siri... Open the [Garde
     > apt install -y curl
     > curl -sL https://raw.githubusercontent.com/AndreasPrang/pastebin/master/Garden%20Door%20Opener%20-%20Raspberry%20PI/GardenDoorSetupRPi.sh | bash -
     
-    Connect an Relay on Pin 7 and GND.
+    Connect an Relay on Pin 7, 5V and GND.
     > homebridge
 
 Example config.json:
