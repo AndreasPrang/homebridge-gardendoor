@@ -25,7 +25,7 @@ Example config.json:
 
     "accessories": [
         {
-                "accessory": "GPIO",
+                "accessory": "GDOOR",
                 "name": "GPIO4",
                 "pin": 7,
                 "duration": 4000
