@@ -5,7 +5,7 @@ module.exports = function(homebridge) {
     Service = homebridge.hap.Service;
     Characteristic = homebridge.hap.Characteristic;
 
-    homebridge.registerAccessory('homebridge-gpio', 'GPIO', GardenDoorAccessory);
+    homebridge.registerAccessory('homebridge-gpio', 'GDOOR', GardenDoorAccessory);
 }
 
 function GardenDoorAccessory(log, config) {
