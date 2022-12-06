@@ -1,12 +1,8 @@
 name: publish to npm
 
 on:
-  push:
-    branches:
-    - master
-    - release/*
-#  release:
-#    types: [created]
+  release:
+    types: [created]
 jobs:
   build:
     runs-on: ubuntu-latest
