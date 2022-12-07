@@ -1,0 +1,30 @@
+{
+  "pluginAlias": "Gardendoor Lock",
+  "pluginType": "accessory",
+  "singular": false,
+  "schema": {
+    "type": "object",
+    "properties": {
+      "name": {
+        "title": "Name",
+        "type": "string",
+        "required": true,
+        "placeholder": "Gardendoor",
+        "default": "Gardendoor"
+      },
+      "pin": {
+        "title": "GPIO pin",
+        "description": "The GPIO pin that should be used as input.",
+        "type": "integer",
+        "required": true,
+        "placeholder": "e.g. 4 for GPIO 4"
+      },
+      "duration": {
+        "title": "Door opening duration",
+        "description": "How many milliseconds should the lock kept open.",
+        "type": "number",
+        "default": 4000
+      }
+    }
+  }
+}
