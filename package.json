@@ -24,6 +24,9 @@
   "homepage": "https://github.com/AndreasPrang/homebridge-gardendoor",
   "main": "index.js",
   "devDependencies": {},
+  "overrides": {
+    "node-gyp": "^11.5.0"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   }
