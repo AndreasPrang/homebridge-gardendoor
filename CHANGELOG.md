@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.2.3] - 2026-03-01
+
+### Fixed
+- Removed `node-libgpiod` from npm dependencies entirely so that
+  `npm install homebridge-gardendoor` no longer triggers a native
+  compilation step and never produces `gpiod.h: No such file or directory`
+  errors in the Homebridge install log.
+- Added a pure-JavaScript sysfs GPIO fallback (`/sys/class/gpio/`) that is
+  used automatically when `node-libgpiod` is not present.  This keeps the
+  plugin fully functional on Raspberry Pi 3/4 (`chip: 0`) without any
+  additional system packages.
+- Raspberry Pi 5 users (`chip: 4`) who need libgpiod support now receive a
+  clear, actionable error message at startup explaining which packages to
+  install (`libgpiod-dev`) and how to re-install the plugin.
+
 ## [1.2.1] - 2026-03-01
 
 ### Fixed

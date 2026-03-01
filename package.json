@@ -1,6 +1,6 @@
 {
   "name": "homebridge-gardendoor",
-  "version": "1.2.2",
+  "version": "1.2.3",
   "description": "Relay controlled door accessory plugin for Homebridge",
   "license": "MIT",
   "author": "Andreas Prang <NPM@AndreasPrang.de>",
@@ -15,18 +15,12 @@
     "node": ">=18",
     "homebridge": ">=1.3.0"
   },
-  "optionalDependencies": {
-    "node-libgpiod": "^0.6.0"
-  },
   "bugs": {
     "url": "https://github.com/AndreasPrang/homebridge-gardendoor/issues"
   },
   "homepage": "https://github.com/AndreasPrang/homebridge-gardendoor",
   "main": "index.js",
   "devDependencies": {},
-  "overrides": {
-    "node-gyp": "^11.5.0"
-  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   }
