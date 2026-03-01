@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.2.1] - 2026-03-01
+
+### Fixed
+- Moved `node-libgpiod` to `optionalDependencies` so that `npm install` no longer aborts when the
+  `libgpiod-dev` system headers are not present. The plugin now reports a clear actionable error at
+  startup if the native addon could not be compiled, instructing the user to run
+  `sudo apt install libgpiod-dev` and then reinstall the plugin.
+
 ## [1.2.0] - 2026-03-01
 
 ### Changed
