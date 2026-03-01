@@ -1,4 +1,12 @@
-var { Chip, Line } = require('node-libgpiod');
+var Chip, Line;
+try {
+    var gpiod = require('node-libgpiod');
+    Chip = gpiod.Chip;
+    Line = gpiod.Line;
+} catch (e) {
+    // node-libgpiod is an optional dependency that requires native compilation.
+    // Installation may have failed because libgpiod-dev is not installed.
+}
 var Service, Characteristic;
 
 module.exports = function(homebridge) {
@@ -17,6 +25,16 @@ function GardenDoorAccessory(log, config) {
     this.service = new Service.LockMechanism(this.name);
 
     if (this.pin === undefined || this.pin === null) throw new Error('You must provide a config value for pin.');
+
+    if (!Chip || !Line) {
+        throw new Error(
+            'node-libgpiod is not available. The native module failed to compile during installation because the ' +
+            'libgpiod development headers are missing. Please install them and reinstall the plugin:\n' +
+            '  sudo apt install libgpiod-dev\n' +
+            'Then reinstall the plugin via the Homebridge UI or by running:\n' +
+            '  npm install --save homebridge-gardendoor'
+        );
+    }
 
     try {
         this.chip = new Chip(this.chipNumber);
