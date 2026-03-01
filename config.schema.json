@@ -14,10 +14,10 @@
       },
       "pin": {
         "title": "GPIO pin",
-        "description": "The GPIO pin number that should be used as output.",
+        "description": "The BCM GPIO number (libgpiod line offset) that should be used as output (e.g. 4 for GPIO4, which is physical pin 7).",
         "type": "integer",
         "required": true,
-        "placeholder": "e.g. 4 for GPIO 4"
+        "placeholder": "e.g. 4 for BCM GPIO4 (physical pin 7)"
       },
       "chip": {
         "title": "GPIO chip number",

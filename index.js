@@ -16,11 +16,11 @@ function GardenDoorAccessory(log, config) {
     this.chipNumber = config['chip'] || 0;
     this.service = new Service.LockMechanism(this.name);
 
-    if (!this.pin) throw new Error('You must provide a config value for pin.');
+    if (this.pin === undefined || this.pin === null) throw new Error('You must provide a config value for pin.');
 
-    this.chip = new Chip(this.chipNumber);
-    this.line = new Line(this.chip, this.pin);
     try {
+        this.chip = new Chip(this.chipNumber);
+        this.line = new Line(this.chip, this.pin);
         this.line.requestOutputMode();
         this.line.setValue(1);
     } catch (err) {
@@ -46,7 +46,7 @@ GardenDoorAccessory.prototype.getState = function(callback) {
 
         var on = this.line.getValue();
         callback(null, on);
-        console.log('Pin ' + this.pin + ' is currently set ' + (on ? 'high' : 'low'));
+        this.log('Pin ' + this.pin + ' is currently set ' + (on ? 'high' : 'low'));
 }
 
 GardenDoorAccessory.prototype.setState = function(state, callback) {

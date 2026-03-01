@@ -3,7 +3,7 @@ A script to open a Garden Door with Siri / HomeKit. "Hey Siri... Open the [Garde
 
 ###Requirements:
 -  Raspberry Pi 
--  Relay connected to Pin 7 (default configuration)
+-  Relay connected to GPIO4 (BCM/libgpiod line offset 4, physical header pin 7)
 -  Node.js >= 18
 -  `libgpiod` installed on the system (`sudo apt install libgpiod2 libgpiod-dev`)
 
@@ -12,7 +12,7 @@ A script to open a Garden Door with Siri / HomeKit. "Hey Siri... Open the [Garde
     > apt install -y curl libgpiod2 libgpiod-dev
     > curl -sL https://raw.githubusercontent.com/AndreasPrang/pastebin/master/Garden%20Door%20Opener%20-%20Raspberry%20PI/GardenDoorSetupRPi.sh | bash -
     
-    Connect the Relay on Pin 7, 5V and GND.
+    Connect the Relay on GPIO4 (BCM line offset 4, physical pin 7), 5V and GND.
     > homebridge
 
 Example config.json:
@@ -29,7 +29,7 @@ Example config.json:
         {
                 "accessory": "GDOOR",
                 "name": "GPIO4",
-                "pin": 7,
+                "pin": 4,
                 "chip": 0,
                 "duration": 4000
         }
