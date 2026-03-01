@@ -1,5 +1,5 @@
 {
-  "pluginAlias": "Gardendoor Lock",
+  "pluginAlias": "GDOOR",
   "pluginType": "accessory",
   "singular": false,
   "schema": {
@@ -14,10 +14,16 @@
       },
       "pin": {
         "title": "GPIO pin",
-        "description": "The GPIO pin that should be used as input.",
+        "description": "The GPIO pin number that should be used as output.",
         "type": "integer",
         "required": true,
         "placeholder": "e.g. 4 for GPIO 4"
+      },
+      "chip": {
+        "title": "GPIO chip number",
+        "description": "The GPIO chip number (0 for Raspberry Pi 3/4, 4 for Raspberry Pi 5). Defaults to 0.",
+        "type": "integer",
+        "default": 0
       },
       "duration": {
         "title": "Door opening duration",

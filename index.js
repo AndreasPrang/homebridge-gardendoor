@@ -1,4 +1,4 @@
-var rpio = require('rpio');
+var { Chip, Line } = require('node-libgpiod');
 var Service, Characteristic;
 
 module.exports = function(homebridge) {
@@ -13,9 +13,19 @@ function GardenDoorAccessory(log, config) {
     this.name = config['name'];
     this.pin = config['pin'];
     this.duration = config['duration'];
+    this.chipNumber = config['chip'] || 0;
     this.service = new Service.LockMechanism(this.name);
 
     if (!this.pin) throw new Error('You must provide a config value for pin.');
+
+    this.chip = new Chip(this.chipNumber);
+    this.line = new Line(this.chip, this.pin);
+    try {
+        this.line.requestOutputMode();
+        this.line.setValue(1);
+    } catch (err) {
+        throw new Error('Failed to initialize GPIO pin ' + this.pin + ' on chip ' + this.chipNumber + ': ' + err.message);
+    }
 
     this.service
     .getCharacteristic(Characteristic.LockCurrentState)
@@ -34,11 +44,9 @@ GardenDoorAccessory.prototype.getServices = function() {
 GardenDoorAccessory.prototype.getState = function(callback) {
         this.log("Getting current state...");
 
-        rpio.open(this.pin, rpio.OUTPUT);
-
-        var on = rpio.read(this.pin)
+        var on = this.line.getValue();
         callback(null, on);
-        console.log('Pin ' + this.pin + ' is currently set ' + (rpio.read(this.pin) ? 'high' : 'low'));
+        console.log('Pin ' + this.pin + ' is currently set ' + (on ? 'high' : 'low'));
 }
 
 GardenDoorAccessory.prototype.setState = function(state, callback) {
@@ -61,9 +69,7 @@ GardenDoorAccessory.prototype.setState = function(state, callback) {
 GardenDoorAccessory.prototype.pinAction = function(action) {
         this.log('Turning ' + (action == 0 ? 'on' : 'off') + ' pin #' + this.pin);
 
-        var self = this;
-        rpio.open(this.pin, rpio.OUTPUT);
-        rpio.write(this.pin, action == 0 ? rpio.LOW : rpio.HIGH);
+        this.line.setValue(action == 0 ? 0 : 1);
 }
 
 GardenDoorAccessory.prototype.pinTimer = function() {
